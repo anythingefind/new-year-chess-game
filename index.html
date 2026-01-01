@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>New Year Chess – Mate in 1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/1.0.0/chess.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css">
+
+<style>
+body {
+  margin:0;
+  background:#121212;
+  color:white;
+  text-align:center;
+  font-family: Arial, sans-serif;
+}
+#board {
+  width: 90vw;
+  max-width: 360px;
+  margin: 20px auto;
+}
+#win {
+  display:none;
+  font-size:28px;
+  color:gold;
+}
+button {
+  padding:10px 20px;
+  margin-top:10px;
+  font-size:16px;
+}
+</style>
+</head>
+
+<body>
+
+<h3>♟ Mate in 1 – New Year Puzzle</h3>
+
+<div id="board"></div>
+
+<div id="win">🎉 CHECKMATE!<br>HAPPY NEW YEAR 2026 🎉</div>
+
+<button onclick="location.reload()">Play Again</button>
+
+<script>
+var game = new Chess(
+"Q7/8/2p2p2/8/5kP1/5B2/pq1r1PK1/8 w - - 0 1"
+);
+
+var board = Chessboard('board', {
+  draggable: true,
+  position: game.fen(),
+  onDrop: function (source, target) {
+    var move = game.move({
+      from: source,
+      to: target,
+      promotion: 'q'
+    });
+
+    if (move === null) return 'snapback';
+
+    if (game.in_checkmate()) {
+      document.getElementById('win').style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>
